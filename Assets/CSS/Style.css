@@ -1,0 +1,33 @@
+body{
+    background-image: url('/Assets/Images/Splatter.jpg');
+    background-repeat: no-repeat;
+}
+
+#Header{
+    clear: both;
+    color:	#fe0002;
+    display: block;
+    font-family: 'Nosifer', cursive;
+    max-width: 640px;
+    text-align: center;
+}
+
+#Buttons{
+    clear: both;
+    display: block;
+    max-width: 640px;
+}
+
+#Search{
+    clear: both;
+    display: block;
+    max-width: 640px;
+    padding-top: 10px;
+}
+
+#Gifs{
+    clear: both;
+    display: block;
+    max-width: 640px;
+    padding-top: 10px;
+}
