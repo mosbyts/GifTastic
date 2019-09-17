@@ -8,39 +8,60 @@ for (var i = 0; i < topics.length; i++){
   button.text(topics[i]);
   aTag.append(button);
   $("#Buttons").append(aTag);
-  var buttonVal = button.val();
 };
 //A function call that takes each topic in the array and remakes the buttons on the page.
 function getGifs(buttonVal2){
-  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + buttonVal2 + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+  var queryURLBtn = "https://api.giphy.com/v1/gifs/search?q=" + buttonVal2 + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
   $.ajax({
-    url: queryURL,
+    url: queryURLBtn,
     method: "GET"
-}).then(function(response){
+  }).then(function(response){
     var results = response.data;
+    console.log(results);
     for(var x = 0; x < results.length; x++){
       //Display each gif
       var actualGif = results[x].images.original.url;
-      var actualGifDisplay = $("<img>", {src: actualGif});
+      var actualGifDisplay = $("<img>", {src: actualGif}).addClass("gif");
       //Above every gif, display its rating (PG, G, so on).
       var rating = results[x].rating;
       var ratingDisplay = $("<h4>").text("Rating: " + rating);
       $("#Gifs").prepend(ratingDisplay, actualGifDisplay);
     }
-});
+  });
+};
+function getGifs2(getVal){
+  var queryURLSearch = "https://api.giphy.com/v1/gifs/search?q=" + getVal + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+  $.ajax({
+    url: queryURLSearch,
+    method: "GET"
+  }).then(function(response){
+    var results = response.data;
+    console.log(results);
+    for(var x = 0; x < results.length; x++){
+      //Display each gif
+      var actualGif = results[x].images.original.url;
+      var actualGifDisplay = $("<img>", {src: actualGif}).addClass("gif");
+      //Above every gif, display its rating (PG, G, so on).
+      var rating = results[x].rating;
+      var ratingDisplay = $("<h4>").text("Rating: " + rating);
+      $("#Gifs").prepend(ratingDisplay, actualGifDisplay);
+    }
+  });
 };
 //When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
 $("button").on('click', function(event){
     event.preventDefault();
     var buttonVal2 = event.currentTarget.innerText;
-    //Add a form to your page that takes a value from a user input box and adds it to your topics array.
-    var getVal = $("input:text").val();  
-    topics.push(getVal);
+    $("#Gifs").empty();
     getGifs(buttonVal2);
-    $("#Gifs").empty();
-    getGifs(getVal);
-    $("#Gifs").empty();
-})
+});
+//Add a form to your page that takes a value from a user input box and adds it to your topics array.
+$("#searchButton").on('click', function(event){
+  event.preventDefault();
+  var getVal = $("#searchBar").val();  
+  $("#Gifs").empty();
+  getGifs2(getVal);
+});
 //When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 $(".gif").on("click", function() {
     var state = $(this).attr("data-state");
