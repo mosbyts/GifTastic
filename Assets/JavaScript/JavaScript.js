@@ -1,26 +1,41 @@
 $(document).ready(function(){
 //Create an array of strings, each one related to a topic that interests you. Save it to a variable called topics.
 var topics = ["Witches", "Ghosts", "Bats", "Crows", "Zombies"];
-var button = "<button>";
-var search = $("#searchBar").val();
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + search + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
-//When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
-$("button").on('click', function(){
-    event.preventDefault();
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response){
-        var results = response.data;
 //Try using a loop that appends a button for each string in the array.
-        for (var i = 0; i < topics.length; i++);
-        button.text(topics[i]);
-        $("#Buttons").append(topics[i]);
-//Under every gif, display its rating (PG, G, so on).
-        var rating = results[i].rating;
-        var ratingDisplay = $("<h3>").text("Rating: " + rating);
-        button.prepend(ratingDisplay);
-    });
+for (var i = 0; i < topics.length; i++){
+  var button = $("<button>", {id: i, value: topics[i]});
+  var aTag = $("<a>");
+  button.text(topics[i]);
+  aTag.append(button);
+  $("#Buttons").append(aTag);
+  var buttonVal = button.val();
+};
+//A function to get the gifs
+function getGifs(buttonVal2){
+  //var search = $("#searchBar").val();
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + buttonVal2 + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+}).then(function(response){
+    var results = response.data;
+    for(var x = 0; x < results.length; x++){
+      //Display each gif
+      var actualGif = results[x].images.original.url;
+      var actualGifDisplay = $("<img>", {src: actualGif});
+      //Above every gif, display its rating (PG, G, so on).
+      var rating = results[x].rating;
+      var ratingDisplay = $("<h4>").text("Rating: " + rating);
+      $("#Gifs").prepend(ratingDisplay, actualGifDisplay);
+    }
+});
+};
+//When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+$("button").on('click', function(event){
+    event.preventDefault();
+    console.log(event);
+    var buttonVal2 = event.currentTarget.innerText;
+    getGifs(buttonVal2);  
 })
 //When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 $(".gif").on("click", function() {
