@@ -1,6 +1,7 @@
 $(document).ready(function(){
 //Create an array of strings, each one related to a topic that interests you. Save it to a variable called topics.
 var topics = ["Witches", "Ghosts", "Bats", "Crows", "Zombies"];
+$("#searchButton").text("Search");
 //Try using a loop that appends a button for each string in the array.
 for (var i = 0; i < topics.length; i++){
   var button = $("<button>", {id: i, value: topics[i]});
@@ -31,6 +32,7 @@ function getGifs(buttonVal2){
 };
 function getGifs2(getVal){
   var queryURLSearch = "https://api.giphy.com/v1/gifs/search?q=" + getVal + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+  console.log(queryURLSearch);
   $.ajax({
     url: queryURLSearch,
     method: "GET"
@@ -60,6 +62,7 @@ $("#searchButton").on('click', function(event){
   event.preventDefault();
   var getVal = $("#searchBar").val();  
   $("#Gifs").empty();
+  $("#Buttons").append("<button>" + getVal + "</button>")
   getGifs2(getVal);
 });
 //When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
