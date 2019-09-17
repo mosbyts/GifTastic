@@ -4,7 +4,7 @@ var topics = ["Witches", "Ghosts", "Bats", "Crows", "Zombies"];
 $("#searchButton").text("Search");
 //Try using a loop that appends a button for each string in the array.
 for (var i = 0; i < topics.length; i++){
-  var button = $("<button>", {id: i, value: topics[i]});
+  var button = $("<button>", {id: i, value: topics[i]},);
   var aTag = $("<a>");
   button.text(topics[i]);
   aTag.append(button);
@@ -50,6 +50,22 @@ function getGifs2(getVal){
     }
   });
 };
+$("button").on('click', function(event){
+  var eventId = event.currentTarget.id;
+  if (eventId === 'searchButton'){
+      event.preventDefault();
+      var getVal = $("#searchBar").val();
+      $("#Gifs").empty();
+      $("#Buttons").append("<button>" + getVal + "</button>")
+      getGifs2(getVal);
+  } else {
+      event.preventDefault();
+      var buttonVal2 = event.currentTarget.innerText;
+      $("#Gifs").empty();
+      getGifs(buttonVal2);
+  }
+});
+/*
 //When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
 $("button").on('click', function(event){
     event.preventDefault();
@@ -60,7 +76,7 @@ $("button").on('click', function(event){
 //Add a form to your page that takes a value from a user input box and adds it to your topics array.
 $("#searchButton").on('click', function(event){
   event.preventDefault();
-  var getVal = $("#searchBar").val();  
+  var getVal = $("#searchBar").val();
   $("#Gifs").empty();
   $("#Buttons").append("<button>" + getVal + "</button>")
   getGifs2(getVal);
@@ -75,5 +91,5 @@ $(".gif").on("click", function() {
       $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("data-state", "still");
     }
-  });
+  });*/
 });
