@@ -4,7 +4,7 @@ var topics = ["Witches", "Ghosts", "Bats", "Crows", "Zombies"];
 $("#searchButton").text("Search");
 //Try using a loop that appends a button for each string in the array.
 for (var i = 0; i < topics.length; i++){
-  var button = $("<button>", {id: i, value: topics[i]},);
+  var button = $("<button>", {id: i, value: topics[i]});
   var aTag = $("<a>");
   button.text(topics[i]);
   aTag.append(button);
@@ -58,8 +58,12 @@ $("button").on('click', function(event){
       event.preventDefault();
       var getVal = $("#searchBar").val();
       $("#Gifs").empty();
-      $("#Buttons").append("<button>" + getVal + "</button>")
-      getGifs2(getVal);
+      var button2 = $("<button>", {id: i, value: getVal});
+      button2.text(getVal);
+      var aTag2 = $("<a>");
+      aTag2.append(button2);
+      $("#Buttons").append(aTag2);
+      getGifs2(button2.text());
   } else {
       event.preventDefault();
       var buttonVal2 = event.currentTarget.innerText;
@@ -70,7 +74,6 @@ $("button").on('click', function(event){
 });
 //When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
 $(document).on("click", ".gif", function() {
-  alert("success");
     var state = $(this).attr("data-state");
     if (state === "still") {
       $(this).attr("src", $(this).attr("data-animate"));
