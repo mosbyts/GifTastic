@@ -22,7 +22,8 @@ function getGifs(buttonVal2){
     for(var x = 0; x < results.length; x++){
       //Display each gif
       var actualGif = results[x].images.original.url;
-      var actualGifDisplay = $("<img>", {src: actualGif}).addClass("gif");
+      var imageGif = results[x].images.fixed_height_still.url;
+      var actualGifDisplay = $("<img>", {src: imageGif, "data-still": imageGif, "data-animate": actualGif, "data-state": "still"}).addClass("gif");
       //Above every gif, display its rating (PG, G, so on).
       var rating = results[x].rating;
       var ratingDisplay = $("<h4>").text("Rating: " + rating);
@@ -42,7 +43,8 @@ function getGifs2(getVal){
     for(var x = 0; x < results.length; x++){
       //Display each gif
       var actualGif = results[x].images.original.url;
-      var actualGifDisplay = $("<img>", {src: actualGif}).addClass("gif");
+      var imageGif = results[x].images.fixed_height_still.url;
+      var actualGifDisplay = $("<img>", {src: imageGif, "data-still": imageGif, "data-animate": actualGif, "data-state": "still"}).addClass("gif");
       //Above every gif, display its rating (PG, G, so on).
       var rating = results[x].rating;
       var ratingDisplay = $("<h4>").text("Rating: " + rating);
@@ -65,24 +67,10 @@ $("button").on('click', function(event){
       getGifs(buttonVal2);
   }
 });
-/*
-//When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
-$("button").on('click', function(event){
-    event.preventDefault();
-    var buttonVal2 = event.currentTarget.innerText;
-    $("#Gifs").empty();
-    getGifs(buttonVal2);
-});
-//Add a form to your page that takes a value from a user input box and adds it to your topics array.
-$("#searchButton").on('click', function(event){
-  event.preventDefault();
-  var getVal = $("#searchBar").val();
-  $("#Gifs").empty();
-  $("#Buttons").append("<button>" + getVal + "</button>")
-  getGifs2(getVal);
 });
 //When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
-$(".gif").on("click", function() {
+$(document).on("click", ".gif", function() {
+  alert("success");
     var state = $(this).attr("data-state");
     if (state === "still") {
       $(this).attr("src", $(this).attr("data-animate"));
@@ -91,5 +79,4 @@ $(".gif").on("click", function() {
       $(this).attr("src", $(this).attr("data-still"));
       $(this).attr("data-state", "still");
     }
-  });*/
-});
+  });
