@@ -31,6 +31,8 @@ body{
 }
 
 #Gifs{
+    background-image: url('../Images/Splatter.jpg');
+    background-repeat: no-repeat;
     clear: both;
     display: block;
     margin: auto;
