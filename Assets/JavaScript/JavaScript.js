@@ -44,7 +44,7 @@ function getGifs2(getVal){
       //Display each gif
       var actualGif = results[x].images.original.url;
       var imageGif = results[x].images.fixed_height_still.url;
-      var actualGifDisplay = $("<img>", {src: imageGif, "data-still": imageGif, "data-animate": actualGif, "data-state": "still"}).addClass("gif");
+      var actualGifDisplay = $("<img>", {src: actualGif, "data-still": imageGif, "data-animate": actualGif, "data-state": "still"}).addClass("gif");
       //Above every gif, display its rating (PG, G, so on).
       var rating = results[x].rating;
       var ratingDisplay = $("<h4>").text("Rating: " + rating);
